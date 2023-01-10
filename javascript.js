@@ -1,4 +1,7 @@
 "use strict"
+let winCounter = 0;
+let looseCounter = 0;
+
 function getComputerChoise(max = 3) {
     let answer = Math.floor(Math.random() * max);
     switch (answer) {
@@ -17,54 +20,59 @@ function playRound(playerSelection, computerSelection) {
         playerSelection != "PAPER" &&
         playerSelection != "SCISSORS") {
         console.log(`The ${playerSelection} is not exist`);
-        return 0;
+        return;
     }
     if (playerSelection == computerSelection) {
         console.log(`Draw, you both have ${playerSelection}`);
-        return 0;
+        return;
     }
     if (playerSelection == "ROCK") {
         if (computerSelection == "PAPER") {
             console.log(`You lost, ${playerSelection} looses ${computerSelection}`);
-            return -1;
+            looseCounter += 1;
+            return;
         }
         else {
             console.log(`You won, ${playerSelection} wins ${computerSelection}`);
-            return 1;
+            winCounter += 1;
+            return;
         }
     }
     if (playerSelection == "PAPER") {
         if (computerSelection == "SCISSORS") {
             console.log(`You lost, ${playerSelection} looses ${computerSelection}`);
-            return -1;
+            looseCounter += 1;
+            return;
         }
         else {
             console.log(`You won, ${playerSelection} wins ${computerSelection}`);
-            return 1;
+            winCounter += 1;
+            return;
         }
     }
     if (playerSelection == "SCISSORS") {
         if (computerSelection == "ROCK") {
             console.log(`You lost, ${playerSelection} looses ${computerSelection}`);
-            return -1;
+            looseCounter += 1;   
+            return;
         }
         else {
             console.log(`You won, ${playerSelection} wins ${computerSelection}`);
-            return 1;
+            winCounter += 1;
+            return;
         }
     }
 }
 
 function game(rounds = 5) {
-    let winCounter = 0;
     for (let _round = 1; _round <= rounds; _round++) {
         console.log(`Round ${_round}`);
-        winCounter += playRound(prompt("Figure"), getComputerChoise());
+        playRound(prompt("Figure"), getComputerChoise());
     }
-    if (winCounter > 0) {
+    if (winCounter > looseCounter) {
         console.log("You won");
     }
-    else if (winCounter == 0) {
+    else if (winCounter == looseCounter) {
         console.log("Draw");
     }
     else {
